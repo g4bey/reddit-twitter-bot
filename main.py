@@ -25,7 +25,7 @@ except (FileNotFoundError, TypeError):
     create_state_file(fSTATE)   
     current_i = 0
 
-subreddit = reddit_api.get_subreddit(subreddit_list[current_i])
+subreddit = reddit_api.subreddit(subreddit_list[current_i])
 
 
 

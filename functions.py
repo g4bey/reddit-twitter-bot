@@ -100,7 +100,7 @@ def log_on_reddit_api(REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET, REDDIT_USER_AGENT)
 def fetch_submission(subreddit, previous_post_list):
     posts = []
     
-    for submission in  subreddit.get_hot(limit=10):
+    for submission in  subreddit.hot(limit=10):
         if submission not in previous_post_list:
             posts.append(
                 [submission.id, submission.title, submission.permalink, submission.url]
