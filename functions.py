@@ -103,7 +103,7 @@ def fetch_submission(subreddit, previous_post_list):
     for submission in  subreddit.hot(limit=10):
         if submission not in previous_post_list:
             posts.append(
-                [submission.id, submission.title, submission.permalink, submission.url]
+                [submission.id, submission.title.encode("utf-8"), submission.permalink, submission.url]
             )
     
     return posts
