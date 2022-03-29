@@ -7,7 +7,7 @@ import praw
 # ------------------------------------
 
 # This is queue. We only fetch top posts hence why we will only save the last 400 ids.
-previous_post_list = [0] ** 400 
+previous_post_list = [0] * 400 
 
 
 reddit_api = log_on_reddit_api(REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET, REDDIT_USER_AGENT)
