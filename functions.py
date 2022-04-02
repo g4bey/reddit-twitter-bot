@@ -97,13 +97,15 @@ def log_on_reddit_api(REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET, REDDIT_USER_AGENT)
         return False
     return reddit
 
-def fetch_submission(subreddit, previous_post_list):
+def fetch_submission(subreddit, previous_post_list, banned_post_list):
     posts = []
     
-    for submission in  subreddit.hot(limit=10):
-        if submission not in previous_post_list:
+    for submission in  subreddit.hot(limit=11):
+        if submission not in (previous_post_list or banned_post_list):
             posts.append(
                 [submission.id, submission.title.encode("utf-8"), submission.permalink, submission.url]
             )
     
     return posts
+
+
