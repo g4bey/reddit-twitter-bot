@@ -14,4 +14,6 @@ How to set-up the bot?
   ``` 
   **DO NOT DISCLOSE THEM BY ANY MEAN** 
   
-- Add subreddits to the subreddit array in **settings.py** as well as their associated tweet. 
+- Add subreddits to the subreddit_list array in **settings.py** as well as their associated tweet. 
+- Append IDs of the post you'd like to remove from selection in the banned_post_list located in **settings.py**
+
