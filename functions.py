@@ -118,14 +118,14 @@ def media_rooter(submission):
 # MEDIA RELATED FUNCTIONS
 # ------------------------------------
 # download an image from an url.
-def download_image(link, folder):
+def download_image(link, media_folder):
     pass
 # download multiple image from a list
-def download_multiple_image(links, folder):
+def download_multiple_image(links, media_folder):
     pass
 # download 
-def download_video(video, audio, folder):
+def download_video(video, audio, media_folder):
     pass
 # deleted files contained in the media folder.
-def empty_media_folder():
+def empty_folder(media_folder):
     pass
