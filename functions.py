@@ -103,9 +103,7 @@ def fetch_submission(subreddit, previous_post_list, banned_post_list):
     for submission in  subreddit.hot(limit=11):
         if submission not in (previous_post_list or banned_post_list):
             posts.append(
-                [submission.id, submission.title.encode("utf-8"), submission.permalink, submission.url]
+                [submission.id, submission.permalink, submission.url]
             )
     
     return posts
-
-
