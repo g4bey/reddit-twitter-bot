@@ -96,7 +96,7 @@ def log_on_reddit_api(REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET, REDDIT_USER_AGENT)
         print("Error during authentication to reddit")
         return False
     return reddit
-
+# returns a list of submission from the a subreddit.
 def fetch_submission(subreddit, previous_post_list, banned_post_list):
     posts = []
     
@@ -107,3 +107,25 @@ def fetch_submission(subreddit, previous_post_list, banned_post_list):
             )
     
     return posts
+# returns links to the media.
+def media_rooter(submission):
+    pass
+
+
+
+
+
+# MEDIA RELATED FUNCTIONS
+# ------------------------------------
+# download an image from an url.
+def download_image(link, folder):
+    pass
+# download multiple image from a list
+def download_multiple_image(links, folder):
+    pass
+# download 
+def download_video(video, audio, folder):
+    pass
+# deleted files contained in the media folder.
+def empty_media_folder():
+    pass
