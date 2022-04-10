@@ -1,6 +1,10 @@
 from settings import *
-from functions import *
+from functions.files_manager import *
+from functions.media_downloader import *
+from functions.reddit_api import *
+from functions.twitter_api import *
 from creds import *
+
 import tweepy
 import praw
 
