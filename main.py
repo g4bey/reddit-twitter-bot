@@ -5,9 +5,6 @@ from functions.reddit_api import *
 from functions.twitter_api import *
 from creds import *
 
-import tweepy
-import praw
-
 # ------------------------------------
 
 # This is queue. We only fetch top posts hence why we will only save the last 400 ids.
@@ -31,7 +28,6 @@ except (FileNotFoundError, TypeError):
 
 subreddit_name = subreddit_list[current_i][0]
 subreddit = reddit_api.subreddit(subreddit_name)
-
 
 
 # program

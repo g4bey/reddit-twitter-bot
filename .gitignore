@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 creds.py
 reddit-test.py
+.program_state
