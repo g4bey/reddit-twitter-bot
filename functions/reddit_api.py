@@ -22,6 +22,3 @@ def fetch_submission(subreddit, previous_post_list, banned_post_list):
             )
     
     return posts
-# returns links to the media.
-def media_rooter(submission):
-    pass
