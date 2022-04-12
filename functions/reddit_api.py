@@ -20,7 +20,8 @@ def fetch_submission(subreddit, previous_post_list, banned_post_list):
             posts.append(
                 {
                    'id': submission.id,
-                   'url': submission.url
+                   'url': submission.url,
+                   'permalink': submission.permalink
                 }
             )
     
