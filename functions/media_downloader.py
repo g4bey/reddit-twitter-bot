@@ -27,24 +27,25 @@ def video_explorer(submission, max=512):
 # returns links to the media.
 def media_rooter(submission):
     hostame = urlparse(submission['url']).hostname
+    path = urlparse(submission['url']).hostname
     
-    if 'v.redd.it' in hostame:
+    if hostame and hostame.endswith('v.redd.it'):
         return {
             'type': 'video',
             'audio': 'tbd',
             'video': video_explorer(submission)
         }
-    elif 'i.redd.it' in hostame:
+    elif hostame and hostame.endswith('i.redd.it'):
         return {
             'type': 'image',
             'link': hostame
         }
-    elif 'i.imgur.com' in hostame:
+    elif hostame and hostame.endswith('i.imgur.com'):
         return {
             'type': 'imgure',
             'link': hostame
         }
-    elif 'gallery' in hostame:
+    elif path and path.startswith('/gallery'):
         return {
             'type': 'gallery',
             'links': galery_explorer(submission)
