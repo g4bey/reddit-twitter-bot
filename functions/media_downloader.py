@@ -1,3 +1,5 @@
+from urllib.parse import urlparse
+
 # DOWNLOADING MEDIAS
 # ------------------------------------
 # download an image from an url.
@@ -24,25 +26,25 @@ def video_explorer(submission, max=512):
 # ------------------------------------
 # returns links to the media.
 def media_rooter(submission):
-    submission_url = submission['url']
+    hostame = urlparse(submission['url']).hostname
     
-    if 'v.redd.it' in submission_url:
+    if 'v.redd.it' in hostame:
         return {
             'type': 'video',
             'audio': 'tbd',
             'video': video_explorer(submission)
         }
-    elif 'i.redd.it' in submission_url:
+    elif 'i.redd.it' in hostame:
         return {
             'type': 'image',
-            'link': submission_url
+            'link': hostame
         }
-    elif 'i.imgur.com' in submission_url:
+    elif 'i.imgur.com' in hostame:
         return {
             'type': 'imgure',
-            'link': submission_url
+            'link': hostame
         }
-    elif 'gallery' in submission_url:
+    elif 'gallery' in hostame:
         return {
             'type': 'gallery',
             'links': galery_explorer(submission)
@@ -50,6 +52,6 @@ def media_rooter(submission):
     else:
         return {
             'type': 'unsupported',
-            'error': f"{submission_url} is unsupported"
+            'error': f"{hostame} is unsupported"
         }
     
