@@ -4,18 +4,7 @@ from ffmpeg import input, output
 
 # DOWNLOADING MEDIAS
 # ------------------------------------
-# download an image from an url.
-def download_image(link, folder):
-    pass
-# download multiple image from a list
-def download_multiple_image(links, folder):
-    for image in links:
-        download_image(links, folder)
-# download 
-def download_video(links, audio, folder):
-    pass
-# download a media
-def stream_download(url, folder, title, extension='mp4'):
+def stream_download(url, folder, title, extension):
     video_stream = requests.get(url, stream=True)
     
     with open(f"{folder}/{title}.{extension}", 'wb') as media:
@@ -64,12 +53,14 @@ def media_rooter(submission):
     elif hostame and hostame.endswith('i.redd.it'):
         return {
             'type': 'image',
-            'link': submission['url']
+            'link': submission['url'], 
+            'extension': submission['url'][-3:]
         }
     elif hostame and hostame.endswith('i.imgur.com'):
         return {
             'type': 'image',
-            'link': submission['url']
+            'link': submission['url'],
+            'extension': submission['url'][-3:]
         }
     elif path and path.startswith('/gallery'):
         return {
@@ -86,8 +77,8 @@ def media_downloader(metadata, media_folder):
     media_type = metadata['type']
     
     if media_type == 'image': 
-        return download_image(metadata['link'], media_folder)
+        pass
     elif media_type == 'gallery':
-        return download_multiple_image(metadata['links'], media_folder)
+        pass
     elif media_type == 'video':
-        return download_video(metadata['video'], metadata['audio'], media_folder)
+        pass
