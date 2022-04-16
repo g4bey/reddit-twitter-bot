@@ -15,7 +15,7 @@ def download_video(video, audio, media_folder):
 # FETCHING LINKS
 # ------------------------------------
 # explore reddit gallery and return links to media
-def galery_explorer(sumission, max=4):
+def gallery_explorer(sumission, max=4):
     pass
 # explore reddit video and return links to the right stream.
 def video_explorer(submission, max=512):
@@ -48,7 +48,7 @@ def media_rooter(submission):
     elif path and path.startswith('/gallery'):
         return {
             'type': 'gallery',
-            'links': galery_explorer(submission)
+            'links': gallery_explorer(submission)
         }
     else:
         return {
