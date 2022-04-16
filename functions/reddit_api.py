@@ -30,6 +30,7 @@ def fetch_submission(subreddit, previous_post_list, banned_post_list, limit=10):
         print(e)
     
     return posts
+# moke request for basic error management.
 def test_connection(reddit_api):
     submission = reddit_api.submission(id="39zje0").title
     
