@@ -39,7 +39,7 @@ def media_rooter(submission):
         return {
             'type': 'video',
             'audio': 'tbd',
-            'link': video_explorer(submission)
+            'video': video_explorer(submission)
         }
     elif hostame and hostame.endswith('i.redd.it'):
         return {
@@ -54,7 +54,7 @@ def media_rooter(submission):
     elif path and path.startswith('/gallery'):
         return {
             'type': 'gallery',
-            'link': gallery_explorer(submission)
+            'links': gallery_explorer(submission)
         }
     else:
         return {
@@ -64,11 +64,10 @@ def media_rooter(submission):
 # download the media(s)
 def media_downloader(metadata, media_folder):
     media_type = metadata['type']
-    link = metadata['link']
     
     if media_type == 'image': 
-        return download_image(links, media_folder)
+        return download_image(metadata['link'], media_folder)
     elif media_type == 'gallery':
-        return download_multiple_image(links, media_folder)
+        return download_multiple_image(metadata['links'], media_folder)
     elif media_type == 'video':
-        return download_video(links, media_folder)
+        return download_video(metadata['video'], metadata['audio'], media_folder)
