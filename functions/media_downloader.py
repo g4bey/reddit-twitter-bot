@@ -61,4 +61,14 @@ def media_rooter(submission):
             'type': 'unsupported',
             'error': f"{hostame} is unsupported"
         }
+# download the media(s)
+def media_downloader(metadata, media_folder):
+    media_type = metadata['type']
+    links = metadata['links']
     
+    if media_type == 'image': 
+        return download_image(links, media_folder)
+    elif media_type == 'gallery':
+        return download_multiple_image(links, media_folder)
+    elif media_type == 'video':
+        return download_video(links, media_folder)

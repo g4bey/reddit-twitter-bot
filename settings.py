@@ -1,5 +1,6 @@
 fSTATE = ".program_state"
 fPREVIOUS_POSTS = ".previous_posts"
+fMEDIA_FOLDER = "/media"
 
 banned_post_list = ["hyts0n"]
 
