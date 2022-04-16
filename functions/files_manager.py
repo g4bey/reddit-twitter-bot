@@ -1,5 +1,5 @@
 import pickle
-
+import os, re, os.path
 
 # PREVIOUS POST LIST RELATED FUNCTIONS
 # ------------------------------------
@@ -20,8 +20,10 @@ def update_previous_posts_file(fPREVIOUS_POSTS, previous_post_list):
     with open(fPREVIOUS_POSTS, 'wb') as file:
         pickle.dump(previous_post_list, file)
 # deleted files contained in the media folder.
-def empty_folder(media_folder):
-    pass
+def empty_folder(folder):
+    for root, dirs, files in os.walk(folder):
+        for file in files:
+            os.remove(os.path.join(root, file))
 
 # PROGRAMME STATE RELATED FUNCTIONS
 # ------------------------------------

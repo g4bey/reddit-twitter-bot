@@ -1,6 +1,7 @@
 from urllib.parse import urlparse
 import requests
-from ffmpeg import input, output
+from ffmpeg import input, output, run
+from os import remove
 
 # DOWNLOADING MEDIAS
 # ------------------------------------
@@ -53,14 +54,12 @@ def media_rooter(submission):
     elif hostame and hostame.endswith('i.redd.it'):
         return {
             'type': 'image',
-            'link': submission['url'], 
-            'extension': submission['url'][-3:]
+            'link': submission['url']
         }
     elif hostame and hostame.endswith('i.imgur.com'):
         return {
             'type': 'image',
-            'link': submission['url'],
-            'extension': submission['url'][-3:]
+            'link': submission['url']
         }
     elif path and path.startswith('/gallery'):
         return {
@@ -72,13 +71,35 @@ def media_rooter(submission):
             'type': 'unsupported',
             'error': f"{hostame} is unsupported"
         }
-# download the media(s)
-def media_downloader(metadata, media_folder):
+# download the media(s) depending on their type
+def media_downloader(metadata, folder):
     media_type = metadata['type']
     
     if media_type == 'image': 
-        pass
+        stream_download(metadata['link'], folder, 'img1', metadata['link'][-3:])
+        
     elif media_type == 'gallery':
-        pass
+        for i, link in enumerate(metadata['links']):
+            stream_download(link, folder, f"img{i+1}", link[-3:])
+            
     elif media_type == 'video':
-        pass
+        audio = metadata['audio'] 
+        if audio:
+            stream_download(metadata['audio'], folder, f"file_audio", 'mp3')
+            audio_stream = input(f"{folder}/file_audio.mp3")
+            for key, video in metadata['video'].items():
+                if audio: 
+                    stream_download(video, folder, f"{key}_temp", 'mp4')
+                    video_stream = input(f"{folder}/{key}_temp.mp4")
+                    output(audio_stream, video_stream, f"{folder}/{key}.mp4").run()
+                    remove(f"{folder}/{key}_temp.mp4")
+            else: 
+                remove(f"{folder}/file_audio.mp3")
+        else:
+            stream_download(video, folder, f"{key}", 'mp4')
+            
+        
+        
+            
+    
+        
