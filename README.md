@@ -1,6 +1,8 @@
 # Reddit-Hourly-Post-On-twitter-
 Twitter bot posting trending media from various animal related subreddits. 
 
+*In order to use this bot, you need ffmpeg installed on your machine.*
+
 How to set-up the bot?
 - Set up a creds.py file and copy your api keys. 
  	```python
