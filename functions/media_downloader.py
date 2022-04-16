@@ -5,15 +5,22 @@ from ffmpeg import input, output
 # DOWNLOADING MEDIAS
 # ------------------------------------
 # download an image from an url.
-def download_image(link, media_folder):
+def download_image(link, folder):
     pass
 # download multiple image from a list
-def download_multiple_image(links, media_folder):
+def download_multiple_image(links, folder):
     for image in links:
-        download_image(links, media_folder)
+        download_image(links, folder)
 # download 
-def download_video(video, audio, media_folder):
+def download_video(links, audio, folder):
     pass
+# download a media
+def stream_download(url, folder, title, extension='mp4'):
+    video_stream = requests.get(url, stream=True)
+    
+    with open(f"{folder}/{title}.{extension}", 'wb') as media:
+        for chunk in video_stream.iter_content(chunk_size = 1024):
+            media.write(chunk)
 
 # FETCHING LINKS
 # ------------------------------------
