@@ -1,4 +1,6 @@
 from urllib.parse import urlparse
+from requests import get
+from ffmpeg import input, output
 
 # DOWNLOADING MEDIAS
 # ------------------------------------
@@ -16,10 +18,14 @@ def download_video(video, audio, media_folder):
 # ------------------------------------
 # explore reddit gallery and return links to media
 def gallery_explorer(sumission, max=4):
+    # access post.media_metadata.items():
+    # return all the link in a dict.
     pass
 # explore reddit video and return links to the right stream.
 def video_explorer(submission, max=512):
-    # 512 MB masx
+    # access audio stream. 
+    # access video stream (trying 360, 480 & 720)
+    # return all the link in a dict.
     pass
 
 # ROOTING
