@@ -1,5 +1,5 @@
 from urllib.parse import urlparse
-from requests import get
+import requests
 from ffmpeg import input, output
 
 # DOWNLOADING MEDIAS
@@ -18,15 +18,29 @@ def download_video(video, audio, media_folder):
 # ------------------------------------
 # explore reddit gallery and return links to media
 def gallery_explorer(sumission, max=4):
-    # access post.media_metadata.items():
-    # return all the link in a dict.
-    pass
-# explore reddit video and return links to the right stream.
+    response = []
+    images = sumission.media_metadata.items()
+    
+    i = 0
+    for image in images: 
+        if i < 4: 
+            response.append(image[1]['s']['u'])
+        i += 1
+        
+    return response
 def video_explorer(submission, max=512):
-    # access audio stream. 
-    # access video stream (trying 360, 480 & 720)
-    # return all the link in a dict.
-    pass
+    response = {}
+    for resolution in [360, 480, 720]:
+        r = requests.get(f"{submission['url']}/DASH_{resolution}.mp4")
+        if r.ok: response[resolution] = r.url
+
+    return response
+# explore reddit audio and return links to the right stream.
+def audio_explorer(submission):
+    r = requests.get(f"{submission['url']}/DASH_audio.mp4")
+    if r.ok: return r.url
+    else: return None
+    
 
 # ROOTING
 # ------------------------------------
@@ -38,18 +52,18 @@ def media_rooter(submission):
     if hostame and hostame.endswith('v.redd.it'):
         return {
             'type': 'video',
-            'audio': 'tbd',
+            'audio': audio_explorer(submission),
             'video': video_explorer(submission)
         }
     elif hostame and hostame.endswith('i.redd.it'):
         return {
             'type': 'image',
-            'link': hostame
+            'link': submission['url']
         }
     elif hostame and hostame.endswith('i.imgur.com'):
         return {
             'type': 'image',
-            'link': hostame
+            'link': submission['url']
         }
     elif path and path.startswith('/gallery'):
         return {
