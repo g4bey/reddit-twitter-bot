@@ -48,7 +48,7 @@ def media_rooter(submission):
         }
     elif hostame and hostame.endswith('i.imgur.com'):
         return {
-            'type': 'imgure',
+            'type': 'image',
             'link': hostame
         }
     elif path and path.startswith('/gallery'):
