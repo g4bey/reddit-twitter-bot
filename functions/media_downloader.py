@@ -54,7 +54,7 @@ def media_rooter(submission):
     elif path and path.startswith('/gallery'):
         return {
             'type': 'gallery',
-            'links': gallery_explorer(submission)
+            'link': gallery_explorer(submission)
         }
     else:
         return {
@@ -64,7 +64,7 @@ def media_rooter(submission):
 # download the media(s)
 def media_downloader(metadata, media_folder):
     media_type = metadata['type']
-    links = metadata['links']
+    link = metadata['link']
     
     if media_type == 'image': 
         return download_image(links, media_folder)
