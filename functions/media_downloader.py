@@ -9,7 +9,8 @@ def download_image(link, media_folder):
     pass
 # download multiple image from a list
 def download_multiple_image(links, media_folder):
-    pass
+    for image in links:
+        download_image(links, media_folder)
 # download 
 def download_video(video, audio, media_folder):
     pass
@@ -21,11 +22,9 @@ def gallery_explorer(sumission, max=4):
     response = []
     images = sumission.media_metadata.items()
     
-    i = 0
-    for image in images: 
+    for i, image in enumerate(images): 
         if i < 4: 
             response.append(image[1]['s']['u'])
-        i += 1
         
     return response
 def video_explorer(submission, max=512):
