@@ -1,6 +1,7 @@
 """Handle every function related to the twitter api."""
 
 import tweepy
+from os import listdir
 
 # TWITTER RELATED FUNCTIONS
 # ------------------------------------
@@ -27,9 +28,21 @@ def verify_twitter_credentials(api):
     return True
 
 
-def build_tweet(body, media_folder):
-    """Return a valid tweet."""
-    pass
+def build_tweet(body, post_id, media_folder):
+    """
+    Return the tweet and path to medias.
+
+    The url is shorttened in the process.
+    """
+    link = f"https://reddit.com/{post_id}"
+    tweet = f"""{body}
+           Credit: {link}"""
+
+    if len(tweet) <= 280:
+        return {
+            "tweet": tweet,
+            "media": listdir(media_folder)
+        }
 
 
 def send_tweet(api, tweet):
