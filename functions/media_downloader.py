@@ -5,10 +5,10 @@ from os import remove
 
 # DOWNLOADING MEDIAS
 # ------------------------------------
-def stream_download(url, folder, title, extension):
+def stream_download(url, name):
     video_stream = requests.get(url, stream=True)
     
-    with open(f"{folder}/{title}.{extension}", 'wb') as media:
+    with open(name, 'wb') as media:
         for chunk in video_stream.iter_content(chunk_size = 1024):
             media.write(chunk)
 
@@ -76,29 +76,35 @@ def media_downloader(metadata, folder):
     media_type = metadata['type']
     
     if media_type == 'image': 
-        stream_download(metadata['link'], folder, 'img1', metadata['link'][-3:])
+        stream_download(metadata['link'], f"{folder}/img1{metadata['link'][-3:]}")
         
     elif media_type == 'gallery':
         for i, link in enumerate(metadata['links']):
-            stream_download(link, folder, f"img{i+1}", link[-3:])
+            stream_download(link, f"{folder}/img{i+1}.{link[-3:]}")
             
     elif media_type == 'video':
         audio = metadata['audio'] 
-        if audio:
-            stream_download(metadata['audio'], folder, f"file_audio", 'mp3')
-            audio_stream = input(f"{folder}/file_audio.mp3")
-            for key, video in metadata['video'].items():
-                if audio: 
-                    stream_download(video, folder, f"{key}_temp", 'mp4')
-                    video_stream = input(f"{folder}/{key}_temp.mp4")
-                    output(audio_stream, video_stream, f"{folder}/{key}.mp4").run()
-                    remove(f"{folder}/{key}_temp.mp4")
-            else: 
-                remove(f"{folder}/file_audio.mp3")
-        else:
-            stream_download(video, folder, f"{key}", 'mp4')
-            
+        audio_path = f"{folder}/file_audio.mp3"
         
+        if audio: 
+            stream_download(metadata['audio'], audio_path)
+            audio_stream = input(audio_path)
+            
+        for key, video in metadata['video'].items():
+            video_path = f"{folder}/{key}.mp4"
+            temps_video_path = f"{folder}/{key}_temp.mp4"
+            
+            if audio:
+                stream_download(video, temps_video_path)
+                video_stream = input(temps_video_path)
+                output(audio_stream, video_stream, video_path).run()
+                remove(temps_video_path)
+            else: 
+                video_path = f"{folder}/{key}.mp4"
+                stream_download(video, video_path)
+        else:
+            if audio: remove(audio_path)       
+            
         
             
     
