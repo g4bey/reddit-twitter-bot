@@ -1,3 +1,5 @@
+"""Handle every function related to the twitter api."""
+
 import tweepy
 
 # TWITTER RELATED FUNCTIONS

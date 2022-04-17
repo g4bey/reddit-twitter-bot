@@ -6,8 +6,6 @@ from ffmpeg import input, output, run
 from os import remove, path
 
 
-
-
 def stream_download(url, name):
     """Download a file from an url, in chunk."""
     video_stream = requests.get(url, stream=True)

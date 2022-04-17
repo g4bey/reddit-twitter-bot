@@ -1,3 +1,5 @@
+"""Handle every function related to te reddit api."""
+
 import praw
 from prawcore.exceptions import PrawcoreException
 
