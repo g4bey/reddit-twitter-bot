@@ -13,7 +13,8 @@ def has_been_posted(threadId, previous_post_list) -> bool:
         return True
 
     return False
-# update the previous post list. we're using a queue as we only fetch top threads.
+# update the previous post list. 
+# we're using a queue as we only fetch top threads.
 # Given a few days, it's sure they've never been posted.
 
 
