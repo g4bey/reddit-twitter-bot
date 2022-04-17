@@ -3,13 +3,13 @@ from prawcore.exceptions import PrawcoreException
 
 # REDDIT RELATED FUNCTIONS
 # ------------------------------------
-# returns the api object after identifying to the reddit api.
 
 
 def log_on_reddit_api(
         REDDIT_CLIENT_ID,
         REDDIT_CLIENT_SECRET,
         REDDIT_USER_AGENT):
+    """Returns the api object after identifying to the reddit api."""
     reddit = praw.Reddit(
         client_id=REDDIT_CLIENT_ID,
         client_secret=REDDIT_CLIENT_SECRET,
@@ -21,7 +21,6 @@ def log_on_reddit_api(
         print("Error during authentication to reddit")
         return False
     return reddit
-# returns a list of submission from the a subreddit.
 
 
 def fetch_submission(
@@ -29,6 +28,7 @@ def fetch_submission(
         previous_post_list,
         banned_post_list,
         limit=10):
+    """Returns a list of submission from the a subreddit."""
     posts = []
     try:
         for submission in subreddit.hot(limit=limit):
@@ -44,8 +44,8 @@ def fetch_submission(
         print(e)
 
     return posts
-# moke request for basic error management.
 
 
 def test_connection(reddit_api):
+    """Make request for basic error management."""
     submission = reddit_api.submission(id="39zje0").title
