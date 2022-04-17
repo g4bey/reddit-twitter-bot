@@ -14,7 +14,7 @@ def tweet_first(submissions, media_folder, tweet_body):
         metadata = media_rooter(submission)
         media_downloader(metadata, media_folder)
 
-        tweet = build_tweet(tweet_body, media_folder)
+        tweet = build_tweet(tweet_body, submission['id'], media_folder)
         send_tweet(twitter_api, tweet)
 
 
