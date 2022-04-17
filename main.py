@@ -5,10 +5,9 @@ from functions.reddit_api import *
 from functions.twitter_api import *
 from creds import *
 
-# ------------------------------------
-
 
 def tweet_first(submissions, media_folder, tweet_body):
+    """Tweet the first submission possible."""
     for submission in submissions:
         empty_folder(media_folder)
 
@@ -18,11 +17,7 @@ def tweet_first(submissions, media_folder, tweet_body):
         tweet = build_tweet(tweet_body, media_folder)
         send_tweet(twitter_api, tweet)
 
-# ------------------------------------
 
-
-# This is queue. We only fetch top posts hence why we will only save the
-# last 400 ids.
 previous_post_list = [0] * 400
 
 reddit_api = log_on_reddit_api(
@@ -38,12 +33,12 @@ twitter_api = log_on_twitter_api(
 if not reddit_api or not twitter_api:
     exit('Could not connect to APIs.')
 
-# ------------------------------------
 
 i_max = len(subreddit_list) - 1  # maximum possible index
 
-# using the modulo provides the index a natural rotation.
+
 try:
+    # modulo provides a natural rotation.
     current_i = fetch_state(fSTATE) % (i_max)
 except (FileNotFoundError, TypeError):
     create_state_file(fSTATE)

@@ -10,5 +10,4 @@ subreddit_list = (
     ['aww', 'your hourly fluffbutt:'],
     ['furry_irl', 'your hourly husko:'],
     ['Unexpected', 'your hourly ask me:']
-    )
-
+)

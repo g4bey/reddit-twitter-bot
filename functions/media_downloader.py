@@ -3,23 +3,18 @@ import requests
 from ffmpeg import input, output, run
 from os import remove
 
-# DOWNLOADING MEDIAS
-# ------------------------------------
-
 
 def stream_download(url, name):
+    """Download a file from an url, in chunk."""
     video_stream = requests.get(url, stream=True)
 
     with open(name, 'wb') as media:
         for chunk in video_stream.iter_content(chunk_size=1024):
             media.write(chunk)
 
-# FETCHING LINKS
-# ------------------------------------
-# explore reddit gallery and return links to media
-
 
 def gallery_explorer(sumission, max=4):
+    """Explore reddit gallery and return links to media."""
     response = []
     images = sumission.media_metadata.items()
 
@@ -38,21 +33,17 @@ def video_explorer(submission, max=512):
             response[resolution] = r.url
 
     return response
-# explore reddit audio and return links to the right stream.
 
 
 def audio_explorer(submission):
+    """Explore reddit audio and return links to the right stream."""
     r = requests.get(f"{submission['url']}/DASH_audio.mp4")
     if r.ok:
         return r.url
 
-    return None
 
-
-# ROOTING
-# ------------------------------------
-# returns links to the media.
 def media_rooter(submission):
+    """Return links to the media."""
     hostame = urlparse(submission['url']).hostname
     path = urlparse(submission['url']).hostname
 
@@ -82,10 +73,10 @@ def media_rooter(submission):
             'type': 'unsupported',
             'error': f"{hostame} is unsupported"
         }
-# download the media(s) depending on their type
 
 
 def media_downloader(metadata, folder):
+    """Download the media(s) depending on their type."""
     media_type = metadata['type']
 
     if media_type == 'image':
