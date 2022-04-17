@@ -42,6 +42,6 @@ subreddit_name = subreddit_list[current_i][0]
 subreddit = reddit_api.subreddit(subreddit_name)
 submissions = fetch_submission(subreddit, previous_post_list, banned_post_list, 3)
 
-tweet_first(submissions, fMEDIA_FOLDER, subreddit_list[fSTATE])
+tweet_first(submissions, fMEDIA_FOLDER, subreddit_list[current_i][1])
 
 increment_state(fSTATE)
