@@ -82,7 +82,7 @@ def media_downloader(metadata, folder):
     if media_type == 'image':
         stream_download(
             metadata['link'],
-            f"{folder}/img1{metadata['link'][-3:]}")
+            f"{folder}/img1.{metadata['link'][-3:]}")
 
     elif media_type == 'gallery':
         for i, link in enumerate(metadata['links']):
