@@ -111,7 +111,7 @@ def media_downloader(metadata, folder):
             if audio:
                 stream_download(video, temps_video_path)
                 video_stream = input(temps_video_path)
-                output(audio_stream, video_stream, video_path).run()
+                output(audio_stream, video_stream, video_path).run(quiet=True)
                 remove(temps_video_path)
             else:
                 video_path = f"{folder}/{key}.mp4"
