@@ -1,7 +1,11 @@
+"""Handle every function related to medias."""
+
 from urllib.parse import urlparse
 import requests
 from ffmpeg import input, output, run
-from os import remove
+from os import remove, path
+
+
 
 
 def stream_download(url, name):
@@ -76,7 +80,11 @@ def media_rooter(submission):
 
 
 def media_downloader(metadata, folder):
-    """Download the media(s) depending on their type."""
+    """
+    Download the media(s) depending on their type.
+
+    If we
+    """
     media_type = metadata['type']
 
     if media_type == 'image':
@@ -96,6 +104,8 @@ def media_downloader(metadata, folder):
             stream_download(metadata['audio'], audio_path)
             audio_stream = input(audio_path)
 
+        max_size = 0
+        max_path = ''
         for key, video in metadata['video'].items():
             video_path = f"{folder}/{key}.mp4"
             temps_video_path = f"{folder}/{key}_temp.mp4"
@@ -108,6 +118,15 @@ def media_downloader(metadata, folder):
             else:
                 video_path = f"{folder}/{key}.mp4"
                 stream_download(video, video_path)
+
+            file_size = path.getsize(video_path)
+            if not max_path:
+                max_path = video_path
+                max_size = file_size
+            elif file_size >= max_size:
+                max_size = file_size
+                remove(max_path)
+                max_path = video_path
         else:
             if audio:
                 remove(audio_path)
