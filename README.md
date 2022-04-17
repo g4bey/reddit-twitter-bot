@@ -1,24 +1,34 @@
-*Please note that you need an access to the twitter API V1 as the V2 has no endpoint for uploading media yet.
-This means you need to register for an eleveted access.*
+*Note: The twitter api V2 has no endpoit for medias yet.*
 
-# Reddit-Hourly-Post-On-twitter-
-Twitter bot posting trending media from various animal related subreddits. 
+## Reddit to twitter bot. 
+*Twitter bot posting media from various subreddits.*
 
-*In order to use this bot, you need ffmpeg installed on your machine.*
+### Requirement: 
++ You need ffmpeg installed on your machine.
++ You need an access to the twitter Api V1. 
 
-How to set-up the bot?
+
+
+### Set-up: 
 - Set up a creds.py file and copy your api keys. 
  	```python
   CONSUMER_KEY = ""
   CONSUMER_SECRET =""
   ACCESS_TOKEN = ""
   ACCESS_TOKEN_SECRET = ""
+  
   REDDIT_CLIENT_ID = ""
   REDDIT_CLIENT_SECRET = ""
   REDDIT_USER_AGENT = ""
   ``` 
   **DO NOT DISCLOSE THEM BY ANY MEAN** 
   
-- Add subreddits to the subreddit_list array in **settings.py** as well as their associated tweet. 
-- Append IDs of the post you'd like to remove from selection in the banned_post_list located in **settings.py**
+  ### In setting,py
+- Add subreddits to the subreddit_list array as their associated tweet.
+- You can also set-up a default tweet in case no body is specified.
+- Append IDs of the post you'd like to remove from selection in the banned_post_list
+
+
+
+
 
