@@ -1,3 +1,6 @@
+*Please note that you need an access to the twitter API V1 as the V2 has no endpoint for uploading media yet.
+This means you need to register for an eleveted access.*
+
 # Reddit-Hourly-Post-On-twitter-
 Twitter bot posting trending media from various animal related subreddits. 
 
