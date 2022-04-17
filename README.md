@@ -23,7 +23,7 @@
   ``` 
   **DO NOT DISCLOSE THEM BY ANY MEAN** 
   
-  ### In setting,py
+ ### In setting.py
 - Add subreddits to the subreddit_list array as their associated tweet.
 - You can also set-up a default tweet in case no body is specified.
 - Append IDs of the post you'd like to remove from selection in the banned_post_list
