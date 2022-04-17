@@ -14,6 +14,9 @@ def tweet_first(submissions, media_folder, tweet_body):
         metadata = media_rooter(submission)
         media_downloader(metadata, media_folder)
 
+        if not tweet_body:
+            tweet_body = default_tweet_body
+
         tweet = build_tweet(tweet_body, submission['id'], media_folder)
         send_tweet(twitter_api, tweet)
 
