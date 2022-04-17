@@ -131,3 +131,4 @@ creds.py
 reddit-test.py
 .program_state
 media/*
+.program_state
