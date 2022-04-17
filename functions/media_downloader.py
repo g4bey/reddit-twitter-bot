@@ -45,8 +45,8 @@ def audio_explorer(submission):
     r = requests.get(f"{submission['url']}/DASH_audio.mp4")
     if r.ok:
         return r.url
-    else:
-        return None
+
+    return None
 
 
 # ROOTING
