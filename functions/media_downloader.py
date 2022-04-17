@@ -28,6 +28,7 @@ def gallery_explorer(sumission, max=4):
 
 
 def video_explorer(submission, max=512):
+    """Explore reddit videos and return all fallback links."""
     response = {}
     for resolution in [360, 480, 720]:
         r = requests.get(f"{submission['url']}/DASH_{resolution}.mp4")
@@ -77,33 +78,23 @@ def media_rooter(submission):
         }
 
 
-def media_downloader(metadata, folder):
-    """
-    Download the media(s) depending on their type.
+def download_image(metadata, folder, name):
+    """Download an image in chunks."""
+    stream_download(metadata['link'],
+                    f"{folder}/{name}.{metadata['link'][-3:]}")
 
-    If we
-    """
-    media_type = metadata['type']
 
-    if media_type == 'image':
-        stream_download(
-            metadata['link'],
-            f"{folder}/img1.{metadata['link'][-3:]}")
+def download_video(metadata, folder):
+    """Download and sort the videos."""
+    audio_path = f"{folder}/file_audio.mp3"
+    audio = metadata['audio']
 
-    elif media_type == 'gallery':
-        for i, link in enumerate(metadata['links']):
-            stream_download(link, f"{folder}/img{i+1}.{link[-3:]}")
-
-    elif media_type == 'video':
-        audio = metadata['audio']
-        audio_path = f"{folder}/file_audio.mp3"
-
-        if audio:
-            stream_download(metadata['audio'], audio_path)
-            audio_stream = input(audio_path)
+    if audio:
+        stream_download(audio, audio_path)
+        audio_stream = input(audio_path)
 
         max_size = 0
-        max_path = ''
+        stored_max_path = ''
         for key, video in metadata['video'].items():
             video_path = f"{folder}/{key}.mp4"
             temps_video_path = f"{folder}/{key}_temp.mp4"
@@ -117,14 +108,37 @@ def media_downloader(metadata, folder):
                 video_path = f"{folder}/{key}.mp4"
                 stream_download(video, video_path)
 
-            file_size = path.getsize(video_path)
-            if not max_path:
-                max_path = video_path
-                max_size = file_size
-            elif file_size >= max_size:
-                max_size = file_size
-                remove(max_path)
-                max_path = video_path
+            max_size, stored_max_path = keep_largest_file(
+                max_size, stored_max_path, video_path)
         else:
             if audio:
                 remove(audio_path)
+
+
+def keep_largest_file(max_size, stored_max, potential_max):
+    """Only keep the largest of stored_max and potential_max."""
+    file_size = path.getsize(potential_max)
+    if not stored_max:
+        stored_max = potential_max
+        max_size = file_size
+    elif file_size >= max_size:
+        max_size = file_size
+        remove(stored_max)
+        stored_max = potential_max
+
+    return max_size, stored_max
+
+
+def media_downloader(metadata, folder):
+    """Download the media(s) depending on their type."""
+    media_type = metadata['type']
+
+    if media_type == 'image':
+        download_image(metadata, folder, 'img')
+
+    elif media_type == 'gallery':
+        for i, link in enumerate(metadata['links']):
+            download_image(link, folder, f"img{i}")
+
+    elif media_type == 'video':
+        download_video(metadata, folder)
