@@ -28,8 +28,10 @@ banned_post_list = ["hyts0n"]
 
 submission_to_fetch = 10
 
+default_tweet_body = "This is the default message"
+
 subreddit_list = (
-    ['aww', 'your hourly fluffbutt:'],
-    ['furry_irl', 'your hourly husko:'],
-    ['Unexpected', 'your hourly ask me:']
+    ['aww', ''],
+    ['furry_irl', ''],
+    ['Unexpected', '']
 )
