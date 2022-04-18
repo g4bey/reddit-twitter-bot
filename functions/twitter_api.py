@@ -44,40 +44,48 @@ def build_tweet(body, post_id, media_folder):
             "media": listdir(media_folder)
         }
 
+
 def get_media_category(file):
     """Map format to media categories."""
     format = file[-3:]
-    
+
     if format == 'mp4':
         return 'tweet_video'
     elif format == 'gif':
         return 'tweet_gif'
-    
+
     return 'tweet_image'
+
+
+def wait_for_processing(twitter_api, media_id):
+    while True:
+        r = twitter_api.get_media_upload_status(media_id)
+        state = r.processing_info['state']
+        print('media upload status: ', state)
+        if state == 'failed':
+            return 0
+        if state == 'succeeded':
+            return 1
+        else:
+            print('sleeping for 5')
+
 
 def send_tweet(api, tweet, media_folder):
     """Send the tweet once built."""
     media_ids = []
     for file in tweet['media']:
         category = get_media_category(file)
-        media = api.media_upload(f"{media_folder}/{file}", media_category=category)
+        media = api.media_upload(
+            f"{media_folder}/{file}",
+            media_category=category)
         media_ids.append(media.media_id)
 
-        while True: 
-            r = api.get_media_upload_status(media.media_id)
-            state = r.processing_info['state']
-            print('media upload status: ', state)
-            if state == 'failed':
-                return 0
-            if state == 'succeeded':
-               break
-            else: 
-                print('sleeping for 5s')
-                sleep(5)
-    
+        if not wait_for_processing(api, media.media_id):
+            return 0
+
     try:
         api.update_status(status=tweet['tweet'], media_ids=media_ids)
         print('We successfully tweeted')
-    except:
+    except BaseException:
         return 0
     return True
