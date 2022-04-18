@@ -2,6 +2,7 @@
 
 import tweepy
 from os import listdir
+from time import sleep
 
 # TWITTER RELATED FUNCTIONS
 # ------------------------------------
@@ -35,8 +36,7 @@ def build_tweet(body, post_id, media_folder):
     The url is shorttened in the process.
     """
     link = f"https://reddit.com/{post_id}"
-    tweet = f"""{body}
-           Credit: {link}"""
+    tweet = f"""{body}\n\nCredit: {link}"""
 
     if len(tweet) <= 280:
         return {
@@ -44,12 +44,40 @@ def build_tweet(body, post_id, media_folder):
             "media": listdir(media_folder)
         }
 
+def get_media_category(file):
+    """Map format to media categories."""
+    format = file[-3:]
+    
+    if format == 'mp4':
+        return 'tweet_video'
+    elif format == 'gif':
+        return 'tweet_gif'
+    
+    return 'tweet_image'
 
-def send_tweet(api, tweet):
+def send_tweet(api, tweet, media_folder):
     """Send the tweet once built."""
-    media = api.media_upload(tweet.path_picture)
-    post_result = api.update_status(
-        status=tweet['body'], media_ids=[
-            media.media_id])
+    media_ids = []
+    for file in tweet['media']:
+        category = get_media_category(file)
+        media = api.media_upload(f"{media_folder}/{file}", media_category=category)
+        media_ids.append(media.media_id)
 
-    print('We successfully tweeted')
+        while True: 
+            r = api.get_media_upload_status(media.media_id)
+            state = r.processing_info['state']
+            print('media upload status: ', state)
+            if state == 'failed':
+                return 0
+            if state == 'succeeded':
+               break
+            else: 
+                print('sleeping for 5s')
+                sleep(5)
+    
+    try:
+        api.update_status(status=tweet['tweet'], media_ids=media_ids)
+        print('We successfully tweeted')
+    except:
+        return 0
+    return True
