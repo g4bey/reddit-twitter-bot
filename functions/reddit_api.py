@@ -34,9 +34,9 @@ def fetch_submission(
     posts = []
     try:
         for submission in subreddit.hot(limit=limit):
-            if submission.stickied == False:
+            if not submission.stickied:
                 if submission not in (previous_post_list or banned_post_list):
-                    try: 
+                    try:
                         media_metadata = submission.media_metadata.items()
                     except AttributeError:
                         media_metadata = {}
