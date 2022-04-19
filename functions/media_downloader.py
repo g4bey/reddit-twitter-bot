@@ -18,7 +18,7 @@ def stream_download(url, name):
 def gallery_explorer(sumission, max=4):
     """Explore reddit gallery and return links to media."""
     response = []
-    images = sumission.media_metadata.items()
+    images = sumission["media_metadata"]
 
     for i, image in enumerate(images):
         if i < 4:
@@ -78,10 +78,10 @@ def media_rooter(submission):
         }
 
 
-def download_image(metadata, folder, name):
+def download_image(link, folder, name):
     """Download an image in chunks."""
-    stream_download(metadata['link'],
-                    f"{folder}/{name}.{metadata['link'][-3:]}")
+    stream_download(link,
+                    f"{folder}/{name}.{link[-3:]}")
 
 
 def download_video(metadata, folder):
@@ -134,7 +134,7 @@ def media_downloader(metadata, folder):
     media_type = metadata['type']
 
     if media_type == 'image':
-        download_image(metadata, folder, 'img')
+        download_image(metadata['link'], folder, 'img')
 
     elif media_type == 'gallery':
         for i, link in enumerate(metadata['links']):
