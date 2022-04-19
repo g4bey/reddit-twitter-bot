@@ -1,37 +1,27 @@
-"""Settings for the application.
+"""Settings for the application."""
 
-fSTATE: the state of your program.
-    / it helps alternating between subreddits
+media_folder = 'media'
+submission_per_fetch = 15
 
-fPREVIOUS_POSTS: store the 400 previous posts.
+subreddits = {
+    'aww': '',
+    'cats': ''
+}
 
-fMEDIA_FOLDER: home of the downloaded medias.
+banned_post = []
 
-banned_post_list: posts you want to ban.
-    / often subreddit have pinned posts.
-    / this won't affect the application
-    / but that's a waste of ressource.
 
-submission_to_fetch: submission you want to fetch.
-    / Media will be indexed, not downloaded.
-    / the script stops at the first
-    / tweet posted.
-
-subreddit_list: the list of subreddit to alternate with.
 """
-
-fSTATE = ".program_state"
-fPREVIOUS_POSTS = ".previous_posts"
-fMEDIA_FOLDER = "media"
-
-banned_post_list = ["hyts0n"]
-
-submission_to_fetch = 10
-
-default_tweet_body = "This is the default message"
-
-subreddit_list = (
-    ['aww', ''],
-    ['furry_irl', ''],
-    ['Unexpected', '']
-)
+Levels:
+    + CRITICAL: 50
+    + ERROR: 40
+    + WARNING: 30
+    + INFO: 20
+    + DEBUG: 10
+    + NOTSET: 0
+"""
+logger = {
+    'file': 'default-log.log',
+    'file_level': 10,
+    'console_level': 10
+}
