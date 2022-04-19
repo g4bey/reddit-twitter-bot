@@ -11,8 +11,8 @@ def log_on_twitter_api(
         consumer_key, consumer_secret,
         access_token, access_token_secret):
     """Log on the twitter api."""
-    auth = OAuthHandler(consumer_key, consumer_secret, 
-                               access_token, access_token_secret)
+    auth = OAuthHandler(consumer_key, consumer_secret,
+                        access_token, access_token_secret)
 
     return API(auth, wait_on_rate_limit=True)
 

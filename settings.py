@@ -8,6 +8,8 @@ subreddits = {
     'cats': ''
 }
 
+fetch_limit = 15
+
 banned_post = []
 
 
