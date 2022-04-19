@@ -1,14 +1,15 @@
 """Settings for the application."""
 
 media_folder = 'media'
+saved_previous_posts = 'previous_posts.pickle'
 submission_per_fetch = 15
 
 subreddits = {
     'aww': '',
-    'cats': ''
+    'aww': ''
 }
 
-fetch_limit = 15
+fetch_limit = 30
 
 banned_post = []
 
