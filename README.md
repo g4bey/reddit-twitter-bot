@@ -1,5 +1,5 @@
 -- *Note: The twitter api V2 has no endpoit for medias yet.*<br>
----*Note2: I decided to re-write the bot **from scratch**. it works, tho.*
+---*Note2: I decided to [re-write the bot from scratch](https://github.com/onetrickwolfy/reddit-twitter-bot/tree/experimental/refactoring)*
 
 ## Reddit to twitter bot. 
 *Twitter bot posting media from various subreddits.*
