@@ -34,19 +34,20 @@ def fetch_submission(
     posts = []
     try:
         for submission in subreddit.hot(limit=limit):
-            if submission not in (previous_post_list or banned_post_list):
-                try: 
-                    media_metadata = submission.media_metadata.items()
-                except AttributeError:
-                    media_metadata = {}
-                posts.append(
-                    {
-                        'id': submission.id,
-                        'url': submission.url,
-                        'permalink': submission.permalink,
-                        'media_metadata': media_metadata
-                    }
-                )
+            if submission.stickied == False:
+                if submission not in (previous_post_list or banned_post_list):
+                    try: 
+                        media_metadata = submission.media_metadata.items()
+                    except AttributeError:
+                        media_metadata = {}
+                    posts.append(
+                        {
+                            'id': submission.id,
+                            'url': submission.url,
+                            'permalink': submission.permalink,
+                            'media_metadata': media_metadata
+                        }
+                    )
     except PrawcoreException as e:
         print(e)
 
