@@ -14,19 +14,22 @@ twitter_media_category_map = {
 }
 
 # reddit-media url.
-supported_url = {
-    'v.redd.it'
-    'i.imgur.com'
-    'www.reddit.com/gallery'
-    'i.redd.it'
+reddit_media_map = {
+    'v.redd.it': "video",
+    'i.imgur.com': "image",
+    'www.reddit.com/gallery': "gallery",
+    'i.redd.it' : "image"
 }
 
-def media_type_is_supported(submission, supported_url=supported_url):
+def media_type_is_supported(submission, media_map=reddit_media_map):
     """Verify the format is supported by the bot."""
-    permalink = submission.permalink
+    url = submission.url
     
-    for url in supported_url:
-        if url in supported_url:
+    for media in media_map.keys():
+        if media in url:
             return True
     
     return False
+
+
+
