@@ -30,8 +30,14 @@ subreddit = reddit.subreddit(random_subreddit)
 # excludeds stickied, unsupported media
 # and previously posted media.
 for submission in subreddit.hot(limit=conf.fetch_limit):
-    if not submission.stickied and media_type_is_supported(submission):
+    if not submission.stickied:
         if submission.id not in (previous_posts or previous_posts):
+            media_type =  get_media_type_for_reddit(submission)
+            if media_type:
+                submission.type = media_type
                 submissions.append(submission)
 
-print(submissions)
+for submission in submissions:
+    print(submission.type)
+
+# note: we're going to download videos as well need.

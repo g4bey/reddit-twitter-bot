@@ -21,15 +21,13 @@ reddit_media_map = {
     'i.redd.it' : "image"
 }
 
-def media_type_is_supported(submission, media_map=reddit_media_map):
-    """Verify the format is supported by the bot."""
+def get_media_type_for_reddit(submission, media_map=reddit_media_map):
+    """Verify the format is supported and return its category."""
     url = submission.url
     
-    for media in media_map.keys():
+    for media, media_type in media_map.items():
         if media in url:
-            return True
+            return media_type
     
     return False
-
-
-
+    
