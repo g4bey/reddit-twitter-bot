@@ -6,23 +6,6 @@ from functions.twitter_api import *
 from creds import *
 
 
-def tweet_first(submissions, media_folder, tweet_body):
-    """Tweet the first submission possible."""
-    for submission in submissions:
-        empty_folder(media_folder)
-
-        metadata = media_rooter(submission)
-        media_downloader(metadata, media_folder)
-
-        if not tweet_body:
-            tweet_body = default_tweet_body
-
-        tweet = build_tweet(tweet_body, submission['id'], media_folder)
-        send_tweet(twitter_api, tweet)
-
-
-previous_post_list = [0] * 400
-
 reddit_api = log_on_reddit_api(
     REDDIT_CLIENT_ID,
     REDDIT_CLIENT_SECRET,
@@ -46,6 +29,12 @@ try:
 except (FileNotFoundError, TypeError):
     create_state_file(fSTATE)
     current_i = 0
+    
+try:
+    previous_post_list = load_previous_posts_file(fPREVIOUS_POSTS)
+except (FileNotFoundError):
+    update_previous_posts_file(fPREVIOUS_POSTS, [])
+    previous_post_list = []
 
 subreddit_name = subreddit_list[current_i][0]
 subreddit = reddit_api.subreddit(subreddit_name)
@@ -53,8 +42,27 @@ submissions = fetch_submission(
     subreddit,
     previous_post_list,
     banned_post_list,
-    3)
+    submission_to_fetch)
 
-tweet_first(submissions, fMEDIA_FOLDER, subreddit_list[current_i][1])
+
+
+for submission in submissions:
+    empty_folder(fMEDIA_FOLDER)
+    metadata = media_rooter(submission)
+        
+    if metadata['type'] == 'unsuported':
+        break
+    
+    media_downloader(metadata, fMEDIA_FOLDER)
+
+    body = subreddit_list[current_i][1]
+    if not body:
+        body = default_tweet_body
+
+    tweet = build_tweet(body, submission['id'], fMEDIA_FOLDER)
+    previous_post_list = update_post_list(submission['id'], previous_post_list)
+    if send_tweet(twitter_api, tweet, fMEDIA_FOLDER):
+        update_previous_posts_file(fPREVIOUS_POSTS, previous_post_list)
+        break
 
 increment_state(fSTATE)
