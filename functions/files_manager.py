@@ -1,8 +1,6 @@
 """Handle every function related to files."""
 
 import pickle
-import os
-import re
 import os.path
 
 
