@@ -58,16 +58,18 @@ def get_media_category(file):
 
 
 def wait_for_processing(twitter_api, media_id):
+    """Wait for videos de be processed."""
     while True:
         r = twitter_api.get_media_upload_status(media_id)
         state = r.processing_info['state']
         print('media upload status: ', state)
         if state == 'failed':
+            print(r.processing_info['error'])
             return 0
         if state == 'succeeded':
             return 1
         else:
-            print('sleeping for 5')
+            sleep(10)
 
 
 def send_tweet(api, tweet, media_folder):
@@ -80,8 +82,9 @@ def send_tweet(api, tweet, media_folder):
             media_category=category)
         media_ids.append(media.media_id)
 
-        if not wait_for_processing(api, media.media_id):
-            return 0
+        if category == 'tweet_video':
+            if not wait_for_processing(api, media.media_id):
+                return 0
 
     try:
         api.update_status(status=tweet['tweet'], media_ids=media_ids)

@@ -48,7 +48,7 @@ def audio_explorer(submission):
 def media_rooter(submission):
     """Return links to the media."""
     hostame = urlparse(submission['url']).hostname
-    path = urlparse(submission['url']).hostname
+    path = urlparse(submission['url']).path
 
     if hostame and hostame.endswith('v.redd.it'):
         return {
@@ -93,26 +93,26 @@ def download_video(metadata, folder):
         stream_download(audio, audio_path)
         audio_stream = input(audio_path)
 
-        max_size = 0
-        stored_max_path = ''
-        for key, video in metadata['video'].items():
-            video_path = f"{folder}/{key}.mp4"
-            temps_video_path = f"{folder}/{key}_temp.mp4"
+    max_size = 0
+    stored_max_path = ''
+    for key, video in metadata['video'].items():
+        video_path = f"{folder}/{key}.mp4"
+        temps_video_path = f"{folder}/{key}_temp.mp4"
 
-            if audio:
-                stream_download(video, temps_video_path)
-                video_stream = input(temps_video_path)
-                output(audio_stream, video_stream, video_path).run(quiet=True)
-                remove(temps_video_path)
-            else:
-                video_path = f"{folder}/{key}.mp4"
-                stream_download(video, video_path)
-
-            max_size, stored_max_path = keep_largest_file(
-                max_size, stored_max_path, video_path)
+        if audio:
+            stream_download(video, temps_video_path)
+            video_stream = input(temps_video_path)
+            output(audio_stream, video_stream, video_path).run(quiet=True)
+            remove(temps_video_path)
         else:
-            if audio:
-                remove(audio_path)
+            video_path = f"{folder}/{key}.mp4"
+            stream_download(video, video_path)
+
+        max_size, stored_max_path = keep_largest_file(
+            max_size, stored_max_path, video_path)
+
+    if audio:
+        remove(audio_path)
 
 
 def keep_largest_file(max_size, stored_max, potential_max):

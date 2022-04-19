@@ -14,13 +14,15 @@ def has_been_posted(threadId, previous_post_list) -> bool:
     return False
 
 
-def update_post_list(threadId, previous_post_list):
+def update_post_list(threadId, previous_post_list, limit=400):
     """Update the previous post list.
 
     We're using a queue as we only fetch top threads.
     Given a few days, it's sure they've never been posted.
     """
-    previous_post_list.pop()
+    if len(previous_post_list) > limit:
+        previous_post_list.pop()
+
     previous_post_list.append(threadId)
     return previous_post_list
 
@@ -29,6 +31,14 @@ def update_previous_posts_file(fPREVIOUS_POSTS, previous_post_list):
     """Overwrite the previous_post_file with a given list."""
     with open(fPREVIOUS_POSTS, 'wb') as file:
         pickle.dump(previous_post_list, file)
+
+
+def load_previous_posts_file(fPREVIOUS_POSTS):
+    """Load the previous post list."""
+    with open(fPREVIOUS_POSTS, 'rb') as file:
+        list = pickle.load(file)
+
+    return list
 
 
 def empty_folder(folder):
