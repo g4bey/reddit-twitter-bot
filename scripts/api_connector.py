@@ -32,7 +32,7 @@ def log_on_reddit_api(
         client_id,
         client_secret,
         user_agent):
-    """Returns the api object after identifying to the reddit api."""
+    """Return the api object after identifying to the reddit api."""
     reddit = Reddit(
         client_id=client_id,
         client_secret=client_secret,

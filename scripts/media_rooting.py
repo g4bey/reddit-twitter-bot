@@ -18,16 +18,16 @@ reddit_media_map = {
     'v.redd.it': "video",
     'i.imgur.com': "image",
     'www.reddit.com/gallery': "gallery",
-    'i.redd.it' : "image"
+    'i.redd.it': "image"
 }
+
 
 def get_media_type_for_reddit(submission, media_map=reddit_media_map):
     """Verify the format is supported and return its category."""
     url = submission.url
-    
+
     for media, media_type in media_map.items():
         if media in url:
             return media_type
-    
+
     return False
-    
