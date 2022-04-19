@@ -35,6 +35,12 @@ random_subreddit = choice(list(conf.subreddits.keys()))
 subreddit = reddit.subreddit(random_subreddit)
 
 
+# set up the body of the tweet
+tweet_body = conf.subreddits['keys']
+if not tweet_body: 
+    tweet_body = conf.default_tweet
+
+
 # fetch the submissions we're going to look through.
 # excludeds stickied, unsupported media
 # and previously posted media.
@@ -57,7 +63,7 @@ for submission in submissions:
 
     if submission.type == 'video':
         pass
-
+    
     previous_posts.append(submission)
     if success:
         break
