@@ -22,7 +22,6 @@ subreddits = {
     'holdmycatnip': '',
     'woof_irl': '',
     'Zoomies': '',
-    'MEOW_IRL': '',
     'husky': '',
     'curledfeetsies': '',
     'birding': '',
