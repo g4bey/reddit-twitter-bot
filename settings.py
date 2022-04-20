@@ -4,7 +4,7 @@ media_folder = 'media'
 saved_previous_posts = 'previous_posts.pickle'
 submission_per_fetch = 15
 
-default_tweet = 'Your hourly dose of cute has arrive!'
+default_tweet = 'Your hourly dose of cute has arrived!'
 
 subreddits = {
     'cats': '',
