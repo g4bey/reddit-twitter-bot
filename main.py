@@ -38,9 +38,10 @@ subreddit = reddit.subreddit(random_subreddit)
 
 # set up the body of the tweet
 tweet_body = conf.subreddits[random_subreddit]
-if not tweet_body: 
+if not tweet_body:
     tweet_body = conf.default_tweet
 
+previous_posts = []  # debug
 
 # fetch the submissions we're going to look through.
 # excludeds stickied, unsupported media
@@ -52,32 +53,35 @@ for submission in subreddit.hot(limit=conf.fetch_limit):
             if media_type:
                 submission.type = media_type
                 submissions.append(submission)
-    
 
-def tweet_image(url):
-    pass
+# media = download_from_url(submission.url, conf.media_folder, 'img')
 
-def tweet_video(url):
-    pass
-    
-def tweet_gallery(url):
-    pass
-
-success = False
+tweet = False
 for submission in submissions:
     
-    if submission.type == 'image':
-        pass
+    args = [
+        twitter, 
+        submission,
+        tweet_body,
+        conf.media_folder
+    ]
     
+    if submission.type == 'image':
+        tweet = tweet_image(*args)
+        
     if submission.type == 'gallery':
-        pass
+       # tweet = tweet_gallery(*args)
+       pass
 
     if submission.type == 'video':
+        # tweet = tweet_video(*args)
         pass
-    
+
     previous_posts.append(submission)
-    if success:
+    if tweet:
         break
+    break
+    
 
 
 # update the previous_post list.

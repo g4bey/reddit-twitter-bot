@@ -11,7 +11,7 @@ subreddits = {
     'aww': ''
 }
 
-fetch_limit = 30
+fetch_limit = 20
 
 banned_post = []
 
@@ -27,6 +27,6 @@ Levels:
 """
 logger = {
     'file': 'default-log.log',
-    'file_level': 10,
+    'file_level': 30,
     'console_level': 10
 }

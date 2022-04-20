@@ -17,5 +17,5 @@ def download_from_url(url, folder, name):
             logging.info(file_path + ' has been downloaded.')
             return file_path
     except Exception:  # To-do: handle expression more precisely.
-        logging.error(Exception)
+        logging.error('Downloading the media failed.')
         return 0
