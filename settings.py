@@ -4,11 +4,45 @@ media_folder = 'media'
 saved_previous_posts = 'previous_posts.pickle'
 submission_per_fetch = 15
 
-default_tweet = 'This is the default tweet.'
+default_tweet = 'Your hourly dose of cute has arrive!'
 
 subreddits = {
+    'cats': '',
     'aww': '',
-    'aww': ''
+    'DOG': '',
+    'AnimalsBeingBros': '',
+    'AnimalsBeingJerks': '',
+    'PetsareAmazing': '',
+    'sneks': '',
+    'rarepuppers': '',
+    'Eyebleach': '',
+    'Kitten': '',
+    'StartledCats': '',
+    'AnimalsBeingGeniuses': '',
+    'holdmycatnip': '',
+    'woof_irl': '',
+    'Zoomies': '',
+    'MEOW_IRL': '',
+    'husky': '',
+    'curledfeetsies': '',
+    'birding': '',
+    'Rabbits': '',
+    'foxes': '',
+    'goldenretrievers': '',
+    'dogpictures': '',
+    'mlem': '',
+    'catpictures': '',
+    'lookatmydog': '',
+    'trashpandas': '',
+    'corgi': '',
+    'hamsters': '',
+    'guineapigs': '',
+    'Blep': '',
+    'teefies': '',
+    'jellybeantoes': '',
+    'Catloaf': '',
+    'WhatsWrongWithYourDog': '',
+    'FunnyAnimals': '',
 }
 
 fetch_limit = 20
