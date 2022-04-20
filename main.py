@@ -8,6 +8,8 @@ from pickle import dump
 from pickle import load
 from os import path
 from os import listdir
+from os import walk
+from os import remove
 
 
 # Create the file if it doesn't exist
@@ -65,17 +67,22 @@ for submission in submissions:
         tweet_body,
         conf.media_folder
     ]
-
     if submission.type == 'image':
         tweet = tweet_image(*args)
 
-    if submission.type == 'gallery':
+    elif submission.type == 'gallery':
         tweet = tweet_gallery(*args)
 
-    if submission.type == 'video':
+    elif submission.type == 'video':
         tweet = tweet_video(*args)
 
     previous_posts.append(submission)
+
+    # remove every file in media.
+    for root, dirs, files in walk(conf.media_folder):
+        for file in files:
+            remove(path.join(root, file))
+
     if tweet:
         break
 

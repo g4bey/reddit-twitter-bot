@@ -46,36 +46,44 @@ def tweet_image(api, submission, body, folder):
 def tweet_video(api, submission, body, folder):
     """Tweet a video from a reddit submission."""
     category = get_media_category_for_twitter('mp4')
-    audio_path =  download_from_url(f"{submission.url}/DASH_audio.mp4", folder, 'audio')
-    
+    audio_path = download_from_url(
+        f"{submission.url}/DASH_audio.mp4", folder, 'audio')
+
     # prepare the content for the tweet.
     tweet_body = create_tweet_body(submission, body)
-    
+
     if audio_path:
         audio_stream = input(audio_path)
 
     for resolution in ['720', '480', '360', '240', '144']:
-        video_path = download_from_url(f"{submission.url}/DASH_{resolution}.mp4", folder, 'video_m')
+        video_path = download_from_url(
+            f"{submission.url}/DASH_{resolution}.mp4", folder, 'video_m')
 
         # if not video path, we look for lower resolution.
         if video_path:
-            
+
             video_stream = input(video_path)
             if(audio_path):
                 video_stream = input(video_path)
-                media_path = f"{folder}/video.mp4" # new path.
-                output(audio_stream, video_stream, media_path).run(quiet=True, overwrite_output=True)
-            else: 
-                media_path = video_path 
-            media = api.media_upload(filename=media_path, media_category=category)
-            
+                media_path = f"{folder}/video.mp4"  # new path.
+                output(
+                    audio_stream,
+                    video_stream,
+                    media_path).run(
+                    quiet=True,
+                    overwrite_output=True)
+            else:
+                media_path = video_path
+            media = api.media_upload(
+                filename=media_path,
+                media_category=category)
+
             # gotta for twitter to process the media
             if not wait_for_processing(api, media.media_id):
                 return 0
-            else: 
+            else:
                 logging.info('tweeting')
                 return tweet(api, tweet_body, [media.media_id])
-
 
 
 def tweet_gallery(api, submission, body, folder):
@@ -83,21 +91,23 @@ def tweet_gallery(api, submission, body, folder):
     category = get_media_category_for_twitter('gallery')
     media_metadata = submission.media_metadata.items()
     media_ids = []
-    
+
     # prepare the content for the tweet.
     tweet_body = create_tweet_body(submission, body)
-    
+
     # Select the firt fouth image.
     for i, image in enumerate(media_metadata):
         if i < 4:
             image_url = image[1]['p'][0]['u']
             image_url = image_url.split("?")[0].replace("preview", "i")
             media_path = download_from_url(image_url, folder, f"img{i+1}")
-            media = api.media_upload(filename=media_path, media_category=category)
+            media = api.media_upload(
+                filename=media_path,
+                media_category=category)
             media_ids.append(media.media_id)
-        else: break
+        else:
+            break
     return tweet(api, tweet_body, media_ids)
-
 
 
 def wait_for_processing(api, media_id):
