@@ -95,4 +95,3 @@ while len(previous_posts) > 400:
 with open(conf.saved_previous_posts, 'wb') as file:
     dump(previous_posts, file)
 
-exit()
