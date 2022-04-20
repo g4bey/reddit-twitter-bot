@@ -58,6 +58,11 @@ for submission in subreddit.hot(limit=conf.fetch_limit):
 
 tweet = False
 for submission in submissions:
+    
+    # remove every file in media.
+    for root, dirs, files in walk(conf.media_folder):
+        for file in files:
+            remove(path.join(root, file))
 
     args = [
         twitter,
@@ -75,11 +80,6 @@ for submission in submissions:
         tweet = tweet_video(*args)
 
     previous_posts.append(submission)
-
-    # remove every file in media.
-    for root, dirs, files in walk(conf.media_folder):
-        for file in files:
-            remove(path.join(root, file))
 
     if tweet:
         break
