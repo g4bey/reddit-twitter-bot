@@ -7,6 +7,7 @@ from random import choice
 from pickle import dump
 from pickle import load
 from os import path
+from os import listdir
 
 
 # Create the file if it doesn't exist
@@ -36,7 +37,7 @@ subreddit = reddit.subreddit(random_subreddit)
 
 
 # set up the body of the tweet
-tweet_body = conf.subreddits['keys']
+tweet_body = conf.subreddits[random_subreddit]
 if not tweet_body: 
     tweet_body = conf.default_tweet
 
@@ -51,13 +52,23 @@ for submission in subreddit.hot(limit=conf.fetch_limit):
             if media_type:
                 submission.type = media_type
                 submissions.append(submission)
+    
 
+def tweet_image(url):
+    pass
+
+def tweet_video(url):
+    pass
+    
+def tweet_gallery(url):
+    pass
 
 success = False
 for submission in submissions:
+    
     if submission.type == 'image':
         pass
-
+    
     if submission.type == 'gallery':
         pass
 
