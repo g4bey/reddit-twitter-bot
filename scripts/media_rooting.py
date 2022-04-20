@@ -7,10 +7,10 @@ This helps working with both APIs more easily.
 # map of category tweepy.media_upload() uses.
 # twitter_video is mandatory.
 twitter_media_category_map = {
-    'mp4': 'twitter_video',
-    'gif': 'twitter_gif',
-    'png': 'twitter_image',
-    'jpg': 'twitter_image'
+    'mp4': 'tweet_video',
+    'gif': 'tweet_gif',
+    'png': 'tweet_image',
+    'jpg': 'tweet_image'
 }
 
 # reddit-media url.
