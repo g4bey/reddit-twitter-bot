@@ -58,20 +58,20 @@ for submission in subreddit.hot(limit=conf.fetch_limit):
 
 tweet = False
 for submission in submissions:
-    
+
     args = [
-        twitter, 
+        twitter,
         submission,
         tweet_body,
         conf.media_folder
     ]
-    
+
     if submission.type == 'image':
         tweet = tweet_image(*args)
-        
+
     if submission.type == 'gallery':
-       # tweet = tweet_gallery(*args)
-       pass
+        # tweet = tweet_gallery(*args)
+        pass
 
     if submission.type == 'video':
         # tweet = tweet_video(*args)
@@ -80,8 +80,6 @@ for submission in submissions:
     previous_posts.append(submission)
     if tweet:
         break
-    break
-    
 
 
 # update the previous_post list.
