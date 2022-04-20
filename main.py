@@ -1,67 +1,101 @@
-from settings import *
-from functions.files_manager import *
-from functions.media_downloader import *
-from functions.reddit_api import *
-from functions.twitter_api import *
-from creds import *
+"""Publish content from reddit to twitter."""
+
+import settings as conf
+from scripts import *
+import creds
+from random import choice
+from pickle import dump
+from pickle import load
+from os import path
+from os import listdir
+from os import walk
+from os import remove
 
 
-reddit_api = log_on_reddit_api(
-    REDDIT_CLIENT_ID,
-    REDDIT_CLIENT_SECRET,
-    REDDIT_USER_AGENT)
-twitter_api = log_on_twitter_api(
-    CONSUMER_KEY,
-    CONSUMER_SECRET,
-    ACCESS_TOKEN,
-    ACCESS_TOKEN_SECRET)
-
-if not reddit_api or not twitter_api:
-    exit('Could not connect to APIs.')
+# Create the file if it doesn't exist
+# Load the list using pickle.
+if path.exists(conf.saved_previous_posts):
+    with open(conf.saved_previous_posts, 'rb') as file:
+        previous_posts = load(file)
+else:
+    previous_posts = []
 
 
-i_max = len(subreddit_list) - 1  # maximum possible index
+submissions = []
 
 
-try:
-    # modulo provides a natural rotation.
-    current_i = fetch_state(fSTATE) % (i_max)
-except (FileNotFoundError, TypeError):
-    create_state_file(fSTATE)
-    current_i = 0
+# initialiation logging.
+init_logger(conf.logger)
 
-try:
-    previous_post_list = load_previous_posts_file(fPREVIOUS_POSTS)
-except (FileNotFoundError):
-    update_previous_posts_file(fPREVIOUS_POSTS, [])
-    previous_post_list = []
-
-subreddit_name = subreddit_list[current_i][0]
-subreddit = reddit_api.subreddit(subreddit_name)
-submissions = fetch_submission(
-    subreddit,
-    previous_post_list,
-    banned_post_list,
-    submission_to_fetch)
+# log on the apis.
+# read the documentation for dict keys.
+twitter = log_on_twitter_api(**creds.twitter)
+reddit = log_on_reddit_api(**creds.reddit)
 
 
+# pick and select a random subreddit.
+random_subreddit = choice(list(conf.subreddits.keys()))
+subreddit = reddit.subreddit(random_subreddit)
+
+
+# set up the body of the tweet
+tweet_body = conf.subreddits[random_subreddit]
+if not tweet_body:
+    tweet_body = conf.default_tweet
+
+previous_posts = []  # debug
+
+# fetch the submissions we're going to look through.
+# excludeds stickied, unsupported media
+# and previously posted media.
+for submission in subreddit.hot(limit=conf.fetch_limit):
+    if not submission.stickied:
+        if submission.id not in (previous_posts or previous_posts):
+            media_type = get_media_type_for_reddit(submission)
+            if media_type:
+                submission.type = media_type
+                submissions.append(submission)
+
+# media = download_from_url(submission.url, conf.media_folder, 'img')
+
+tweet = False
 for submission in submissions:
-    empty_folder(fMEDIA_FOLDER)
-    metadata = media_rooter(submission)
 
-    if metadata['type'] == 'unsuported':
+    args = [
+        twitter,
+        submission,
+        tweet_body,
+        conf.media_folder
+    ]
+    if submission.type == 'image':
+        tweet = tweet_image(*args)
+
+    elif submission.type == 'gallery':
+        tweet = tweet_gallery(*args)
+
+    elif submission.type == 'video':
+        tweet = tweet_video(*args)
+
+    previous_posts.append(submission)
+
+    # remove every file in media.
+    for root, dirs, files in walk(conf.media_folder):
+        for file in files:
+            remove(path.join(root, file))
+
+    if tweet:
         break
 
-    media_downloader(metadata, fMEDIA_FOLDER)
+# update the previous_post list.
+# emptying it so the size stays constant.
+# this is less to load in ram.
+while len(previous_posts) > 400:
+    previous_posts.pop()
 
-    body = subreddit_list[current_i][1]
-    if not body:
-        body = default_tweet_body
 
-    tweet = build_tweet(body, submission['id'], fMEDIA_FOLDER)
-    previous_post_list = update_post_list(submission['id'], previous_post_list)
-    if send_tweet(twitter_api, tweet, fMEDIA_FOLDER):
-        update_previous_posts_file(fPREVIOUS_POSTS, previous_post_list)
-        break
+# save the previous_posts list on the disk
+with open(conf.saved_previous_posts, 'wb') as file:
+    dump(previous_posts, file)
 
-increment_state(fSTATE)
+
+# note: we're going to download videos as well need.
