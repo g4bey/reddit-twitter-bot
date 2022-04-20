@@ -43,7 +43,6 @@ tweet_body = conf.subreddits[random_subreddit]
 if not tweet_body:
     tweet_body = conf.default_tweet
 
-previous_posts = []  # debug
 
 # fetch the submissions we're going to look through.
 # excludeds stickied, unsupported media
@@ -56,7 +55,6 @@ for submission in subreddit.hot(limit=conf.fetch_limit):
                 submission.type = media_type
                 submissions.append(submission)
 
-# media = download_from_url(submission.url, conf.media_folder, 'img')
 
 tweet = False
 for submission in submissions:
@@ -96,6 +94,3 @@ while len(previous_posts) > 400:
 # save the previous_posts list on the disk
 with open(conf.saved_previous_posts, 'wb') as file:
     dump(previous_posts, file)
-
-
-# note: we're going to download videos as well need.
