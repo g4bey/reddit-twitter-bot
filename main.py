@@ -41,7 +41,7 @@ tweet_body = conf.subreddits[random_subreddit]
 if not tweet_body:
     tweet_body = conf.default_tweet
 
-previous_posts = ['u7nbdg', 'u7vamm', 'u7qczz']  # debug
+previous_posts = []  # debug
 
 # fetch the submissions we're going to look through.
 # excludeds stickied, unsupported media
@@ -73,8 +73,7 @@ for submission in submissions:
         tweet = tweet_gallery(*args)
 
     if submission.type == 'video':
-        # tweet = tweet_video(*args)
-        pass
+        tweet = tweet_video(*args)
 
     previous_posts.append(submission)
     if tweet:
