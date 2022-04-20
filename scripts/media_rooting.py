@@ -34,11 +34,9 @@ def get_media_type_for_reddit(submission, media_map=reddit_media_map):
     return False
 
 
-def get_media_category_for_twitter(
-        submission,
+def get_media_category_for_twitter(format,
         media_map=twitter_media_category_map):
     """Return the category of supported medias for twitter/upload."""
-    format = submission.url[-3:]
 
     if media_map[format]:
         return media_map[format]
