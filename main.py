@@ -94,3 +94,5 @@ while len(previous_posts) > 400:
 # save the previous_posts list on the disk
 with open(conf.saved_previous_posts, 'wb') as file:
     dump(previous_posts, file)
+
+exit()
