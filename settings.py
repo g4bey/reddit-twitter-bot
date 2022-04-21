@@ -5,6 +5,8 @@ submission_per_fetch = 15
 
 default_tweet = 'Your hourly dose of cute has arrived!'
 
+excluded_flair = ['Advise', 'Human']
+
 subreddits = {
     'cats': '',
     'aww': '',
@@ -40,7 +42,7 @@ subreddits = {
     'jellybeantoes': '',
     'Catloaf': '',
     'WhatsWrongWithYourDog': '',
-    'FunnyAnimals': '',
+    'FunnyAnimals': ''
 }
 
 fetch_limit = 20

@@ -48,11 +48,12 @@ if not tweet_body:
 # and previously posted media.
 for submission in subreddit.hot(limit=conf.fetch_limit):
     if not submission.stickied:
-        if submission.id not in (previous_posts or previous_posts):
-            media_type = get_media_type_for_reddit(submission)
-            if media_type:
-                submission.type = media_type
-                submissions.append(submission)
+        if submission.link_flair_text not in conf.excluded_flair:
+            if submission.id not in (previous_posts or previous_posts):
+                media_type = get_media_type_for_reddit(submission)
+                if media_type:
+                    submission.type = media_type
+                    submissions.append(submission)
 
 
 tweet = False
