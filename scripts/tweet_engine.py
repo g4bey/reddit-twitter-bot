@@ -1,7 +1,9 @@
 """Handle tweeting for each category."""
 
 import logging
+from warnings import catch_warnings
 from ffmpeg import input
+from ffmpeg import Error as ffmpegError
 from ffmpeg import output
 from time import sleep
 
@@ -66,12 +68,16 @@ def tweet_video(api, submission, body, folder):
             if(audio_path):
                 video_stream = input(video_path)
                 media_path = f"{folder}/video.mp4"  # new path.
-                output(
-                    audio_stream,
-                    video_stream,
-                    media_path).run(
-                    quiet=True,
-                    overwrite_output=True)
+                
+                try:
+                    output(
+                        audio_stream,
+                        video_stream,
+                        media_path).run(
+                        quiet=True,
+                        overwrite_output=True)
+                except ffmpegError: 
+                    return 0
             else:
                 media_path = video_path
             media = api.media_upload(

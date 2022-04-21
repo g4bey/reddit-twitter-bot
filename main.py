@@ -7,7 +7,6 @@ from random import choice
 from pickle import dump
 from pickle import load
 from os import path
-from os import listdir
 from os import walk
 from os import remove
 
