@@ -14,8 +14,8 @@ from os import remove
 
 # Create the file if it doesn't exist
 # Load the list using pickle.
-if path.exists(conf.saved_previous_posts):
-    with open(conf.saved_previous_posts, 'rb') as file:
+if path.exists('previous_posts.pickle'):
+    with open('previous_posts.pickle', 'rb') as file:
         previous_posts = load(file)
 else:
     previous_posts = []
@@ -92,6 +92,6 @@ while len(previous_posts) > 400:
 
 
 # save the previous_posts list on the disk
-with open(conf.saved_previous_posts, 'wb') as file:
+with open('previous_posts.pickle', 'wb') as file:
     dump(previous_posts, file)
 
