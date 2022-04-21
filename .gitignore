@@ -137,3 +137,4 @@ media/*.gif
 .program_state
 .vscode/settings.json
 Procfile
+previous_posts.pickle
