@@ -8,6 +8,7 @@
 
 ### Set-up: 
 - Set up a creds.py file and copy your api keys. 
+You can also use environement variables. 
 ```python
     twitter = {
         "consumer_key": "",
