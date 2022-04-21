@@ -79,7 +79,7 @@ for submission in submissions:
     elif submission.type == 'video':
         tweet = tweet_video(*args)
 
-    previous_posts.append(submission)
+    previous_posts.append(submission.id)
 
     if tweet:
         break
