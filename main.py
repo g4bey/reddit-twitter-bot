@@ -9,6 +9,7 @@ from pickle import load
 from os import path
 from os import walk
 from os import remove
+from random import shuffle
 
 
 # Create the file if it doesn't exist
@@ -57,7 +58,7 @@ for submission in subreddit.hot(limit=conf.fetch_limit):
 
 
 tweet = False
-for submission in submissions:
+for submission in shuffle(submissions):
     
     # remove every file in media.
     for root, dirs, files in walk(conf.media_folder):
