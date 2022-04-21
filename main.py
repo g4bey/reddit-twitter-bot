@@ -58,7 +58,8 @@ for submission in subreddit.hot(limit=conf.fetch_limit):
 
 
 tweet = False
-for submission in shuffle(submissions):
+shuffled_list = shuffle(submissions)
+for submission in shuffled_list:
     
     # remove every file in media.
     for root, dirs, files in walk(conf.media_folder):
