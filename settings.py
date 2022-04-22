@@ -8,41 +8,7 @@ default_tweet = 'Your hourly dose of cute has arrived!'
 excluded_flair = ['Advise', 'Human']
 
 subreddits = {
-    'cats': '',
-    'aww': '',
-    'DOG': '',
-    'AnimalsBeingBros': '',
-    'AnimalsBeingJerks': '',
-    'PetsareAmazing': '',
-    'sneks': '',
-    'rarepuppers': '',
-    'Eyebleach': '',
-    'Kitten': '',
-    'StartledCats': '',
-    'AnimalsBeingGeniuses': '',
-    'holdmycatnip': '',
-    'woof_irl': '',
-    'Zoomies': '',
-    'husky': '',
-    'curledfeetsies': '',
-    'birding': '',
-    'Rabbits': '',
-    'foxes': '',
-    'goldenretrievers': '',
-    'dogpictures': '',
-    'mlem': '',
-    'catpictures': '',
-    'lookatmydog': '',
-    'trashpandas': '',
-    'corgi': '',
-    'hamsters': '',
-    'guineapigs': '',
-    'Blep': '',
-    'teefies': '',
-    'jellybeantoes': '',
-    'Catloaf': '',
-    'WhatsWrongWithYourDog': '',
-    'FunnyAnimals': ''
+    'cats': ''
 }
 
 fetch_limit = 20
