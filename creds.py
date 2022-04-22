@@ -1,4 +1,4 @@
-"""Retrun credentials."""
+"""Credentials."""
 
 import os
 
