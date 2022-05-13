@@ -1,6 +1,5 @@
 """Publish content from reddit to twitter."""
 
-# import config as conf
 from scripts import *
 import creds
 from random import choice
