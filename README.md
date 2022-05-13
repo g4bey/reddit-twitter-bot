@@ -29,15 +29,15 @@ You can also use environement variables.
 *If key values are left empty, `default_tweet` will be its value.*
 ```python
  subreddits = {
-      'subreddit1': 'This is a tweet.',
-      'subreddit2': ''
+      subreddit1: This is a tweet.,
+      subreddit2: ''
     }
 ```
 
 - You can dynamically ban posts appending submission.id to banned_post[] 
 ```python
  banned_post = [
-    'u7vamm',
-    'u7wts1'
+    u7vamm,
+    u7wts1
  ]
 ```
