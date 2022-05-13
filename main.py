@@ -1,6 +1,6 @@
 """Publish content from reddit to twitter."""
 
-import settings as conf
+# import config as conf
 from scripts import *
 import creds
 from random import choice
@@ -10,7 +10,11 @@ from os import path
 from os import walk
 from os import remove
 from random import shuffle
+from yaml import safe_load
 
+# import config
+with open('settings.yaml', 'r') as file:
+    conf = safe_load(file)
 
 # Create the file if it doesn't exist
 # Load the list using pickle.
@@ -25,7 +29,7 @@ submissions = []
 
 
 # initialiation logging.
-init_logger(conf.logger)
+init_logger(conf['logger'])
 
 # log on the apis.
 # read the documentation for dict keys.
@@ -34,22 +38,22 @@ reddit = log_on_reddit_api(**creds.reddit)
 
 
 # pick and select a random subreddit.
-random_subreddit = choice(list(conf.subreddits.keys()))
+random_subreddit = choice(list(conf['subreddits'].keys()))
 subreddit = reddit.subreddit(random_subreddit)
 
 
 # set up the body of the tweet
-tweet_body = conf.subreddits[random_subreddit]
+tweet_body = conf['subreddits'][random_subreddit]
 if not tweet_body:
-    tweet_body = conf.default_tweet
+    tweet_body = conf['default_tweet']
 
 
 # fetch the submissions we're going to look through.
 # excludeds stickied, unsupported media
 # and previously posted media.
-for submission in subreddit.hot(limit=conf.fetch_limit):
+for submission in subreddit.hot(limit=conf['fetch_limit']):
     if not submission.stickied:
-        if submission.link_flair_text not in conf.excluded_flair:
+        if submission.link_flair_text not in conf['excluded_flair']:
             if submission.id not in (previous_posts or previous_posts):
                 media_type = get_media_type_for_reddit(submission)
                 if media_type:
@@ -60,9 +64,9 @@ for submission in subreddit.hot(limit=conf.fetch_limit):
 tweet = False
 shuffle(submissions)
 for submission in submissions:
-    
+
     # remove every file in media.
-    for root, dirs, files in walk(conf.media_folder):
+    for root, dirs, files in walk(conf['media_folder']):
         for file in files:
             remove(path.join(root, file))
 
@@ -70,7 +74,7 @@ for submission in submissions:
         twitter,
         submission,
         tweet_body,
-        conf.media_folder
+        conf['media_folder']
     ]
     if submission.type == 'image':
         tweet = tweet_image(*args)
@@ -96,4 +100,3 @@ while len(previous_posts) > 400:
 # save the previous_posts list on the disk
 with open('previous_posts.pickle', 'wb') as file:
     dump(previous_posts, file)
-

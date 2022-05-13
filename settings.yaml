@@ -1,0 +1,21 @@
+media_folder: media
+submission_per_fetch: 15
+default_tweet: Yet another test to make sure the new config file works fine.
+fetch_limit: 20
+
+logger: {
+    file: default-log.log,
+    file_level: 30,
+    console_level: 10
+}
+
+banned_post: []
+
+excluded_flair: 
+    - Advise
+    - Human
+
+subreddits: {
+    cats: '',
+    aww: ''
+}

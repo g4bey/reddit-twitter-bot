@@ -68,7 +68,7 @@ def tweet_video(api, submission, body, folder):
             if(audio_path):
                 video_stream = input(video_path)
                 media_path = f"{folder}/video.mp4"  # new path.
-                
+
                 try:
                     output(
                         audio_stream,
@@ -76,7 +76,7 @@ def tweet_video(api, submission, body, folder):
                         media_path).run(
                         quiet=True,
                         overwrite_output=True)
-                except ffmpegError: 
+                except ffmpegError:
                     return 0
             else:
                 media_path = video_path
