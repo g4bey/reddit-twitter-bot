@@ -1,7 +1,7 @@
 """Publish content from reddit to twitter."""
 
 from scripts import *
-import creds
+import creds as creds
 from random import choice
 from pickle import dump
 from pickle import load
