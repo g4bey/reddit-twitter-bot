@@ -11,6 +11,7 @@ twitter_media_category_map = {
     'gif': 'tweet_gif',
     'png': 'tweet_image',
     'jpg': 'tweet_image',
+    'jpeg': 'tweet_image',
     'gallery': 'tweet_image'
 }
 

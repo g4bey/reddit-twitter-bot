@@ -5,7 +5,7 @@ import creds as creds
 from random import choice
 from pickle import dump
 from pickle import load
-from os import path
+from os import makedirs, path
 from os import walk
 from os import remove
 from random import shuffle
@@ -22,6 +22,11 @@ if path.exists('previous_posts.pickle'):
         previous_posts = load(file)
 else:
     previous_posts = []
+
+
+# Create the folder if it doesn't exist
+if not path.exists(conf['media_folder']):
+    makedirs(conf['media_folder'])
 
 
 submissions = []

@@ -1,6 +1,7 @@
 """Handle tweeting for each category."""
 
 import logging
+from urllib.parse import urlparse
 from warnings import catch_warnings
 from ffmpeg import input
 from ffmpeg import Error as ffmpegError
@@ -34,7 +35,8 @@ def create_tweet_body(submission, body):
 
 def tweet_image(api, submission, body, folder):
     """Tweet an image from a reddit submission."""
-    category = get_media_category_for_twitter(submission.url[-3:])
+    category = get_media_category_for_twitter(
+        submission.url[-5:].split(".")[-1])
     media_path = download_from_url(submission.url, folder, 'img')
 
     # prepare the content for the tweet.

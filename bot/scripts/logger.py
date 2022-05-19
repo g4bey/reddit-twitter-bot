@@ -38,7 +38,7 @@ def init_logger(conf: dict) -> None:
     logger.addHandler(files)
 
     console = logging.StreamHandler()
-    
+
     console.setLevel(console_level)
 
     console.setFormatter(logging.Formatter(
@@ -46,4 +46,3 @@ def init_logger(conf: dict) -> None:
     )
 
     logger.addHandler(console)
-
