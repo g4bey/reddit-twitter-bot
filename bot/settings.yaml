@@ -1,12 +1,13 @@
 media_folder: media
 submission_per_fetch: 15
-default_tweet: Yet another test to make sure the new config file works fine.
+default_tweet: Routine test! Improving the logging.
 fetch_limit: 20
 
 logger: {
-    file: default-log.log,
+    file: '',
+    name: default-log,
     file_level: 30,
-    console_level: 10
+    console_level: 30
 }
 
 banned_post: []

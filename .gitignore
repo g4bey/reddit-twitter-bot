@@ -129,12 +129,9 @@ dmypy.json
 .pyre/
 reddit-test.py
 .program_state
-media/*.mp4
-media/*.png
-media/*.mp3
-media/*.jpg
-media/*.gif
+*/media/*
 .program_state
 .vscode/settings.json
 Procfile
 previous_posts.pickle
+bot/scripts/logger.py
