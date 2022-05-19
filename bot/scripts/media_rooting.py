@@ -39,7 +39,4 @@ def get_media_category_for_twitter(format,
                                    media_map=twitter_media_category_map):
     """Return the category of supported medias for twitter/upload."""
 
-    if media_map[format]:
-        return media_map[format]
-
-    return False
+    return media_map.get(format) if media_map.get(format) else False
