@@ -8,8 +8,13 @@ from pickle import load
 from os import makedirs, path
 from os import walk
 from os import remove
+from os import chdir
+from os import getcwd
 from random import shuffle
 from yaml import safe_load
+
+if not getcwd().endswith('bot'):
+    chdir('bot')
 
 # import config
 with open('settings.yaml', 'r') as file:
