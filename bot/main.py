@@ -56,7 +56,7 @@ if not tweet_body:
 # excludeds stickied, unsupported media
 # and previously posted media.
 for submission in subreddit.hot(limit=conf['fetch_limit']):
-    if not submission.stickied:
+    if not submission.stickied and not submission.over_18:
         if submission.link_flair_text not in conf['excluded_flair']:
             if submission.id not in (previous_posts or previous_posts):
                 media_type = get_media_type_for_reddit(submission)
