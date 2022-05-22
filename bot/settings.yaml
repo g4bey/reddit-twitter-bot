@@ -1,6 +1,6 @@
 media_folder: media
 submission_per_fetch: 15
-default_tweet: Routine test! Improving the logging.
+default_tweet: Some animals for ya :3
 fetch_limit: 20
 
 logger: {
@@ -17,6 +17,38 @@ excluded_flair:
     - Human
 
 subreddits: {
-    cats: '',
-    aww: ''
+    'cats': '',
+    'aww': '',
+    'DOG': '',
+    'AnimalsBeingBros': '',
+    'AnimalsBeingJerks': '',
+    'PetsareAmazing': '',
+    'sneks': '',
+    'rarepuppers': '',
+    'Eyebleach': '',
+    'Kitten': '',
+    'StartledCats': '',
+    'AnimalsBeingGeniuses': '',
+    'holdmycatnip': '',
+    'woof_irl': '',
+    'Zoomies': '',
+    'husky': '',
+    'curledfeetsies': '',
+    'birding': '',
+    'Rabbits': '',
+    'foxes': '',
+    'goldenretrievers': '',
+    'dogpictures': '',
+    'mlem': '',
+    'catpictures': '',
+    'lookatmydog': '',
+    'trashpandas': '',
+    'corgi': '',
+    'hamsters': '',
+    'Blep': '',
+    'teefies': '',
+    'jellybeantoes': '',
+    'Catloaf': '',
+    'WhatsWrongWithYourDog': '',
+    'FunnyAnimals': ''
 }
